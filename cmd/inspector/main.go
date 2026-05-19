@@ -10,10 +10,11 @@ import (
 	"syscall"
 	"time"
 
-	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
-	"go.uber.org/zap"
 	"muyiwadosunmu/k8s-inspector/internal/k8s"
 	"muyiwadosunmu/k8s-inspector/internal/pkg/web"
+
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.uber.org/zap"
 )
 
 type config struct {
@@ -122,6 +123,7 @@ func (app *application) routes() http.Handler {
 
 	webApp.Handle(http.MethodGet, "/healthz", app.healthzHandler)
 	webApp.Handle(http.MethodGet, "/summary", app.summaryHandler)
+	webApp.Handle(http.MethodGet, "/pods", app.podsHandler)
 
 	return mux
 }
