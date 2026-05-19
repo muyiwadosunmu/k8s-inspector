@@ -29,6 +29,10 @@ type application struct {
 	wg        sync.WaitGroup
 }
 
+// build metadata injected at build time via -ldflags
+var buildTime string
+var gitCommit string
+
 func main() {
 	logger, err := zap.NewProduction()
 	if err != nil {
@@ -130,7 +134,9 @@ func (app *application) routes() http.Handler {
 
 func (app *application) healthzHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
 	data := map[string]string{
-		"status": "ok",
+		"status":    "ok",
+		"buildTime": buildTime,
+		"gitCommit": gitCommit,
 	}
 	return web.Respond(ctx, w, data, http.StatusOK)
 }
@@ -138,7 +144,7 @@ func (app *application) healthzHandler(ctx context.Context, w http.ResponseWrite
 // webErrorHandler is the centralized error handler for the web framework
 func (app *application) webErrorHandler(ctx context.Context, w http.ResponseWriter, err error) {
 	var status int
-	var message interface{}
+	var message any
 	var fields map[string]string
 
 	if webErr, ok := err.(*web.Error); ok {
