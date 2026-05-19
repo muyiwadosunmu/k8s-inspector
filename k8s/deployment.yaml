@@ -13,26 +13,37 @@ spec:
     metadata:
       labels:
         app: inspector
+      annotations:
+        # Replace this with an immutable image tag (commit SHA or semver)
+        # e.g. deployedImage: registry.example.com/inspector:deadbeef
+        deployedImage: "inspector:REPLACE_WITH_COMMIT_SHA"
     spec:
       serviceAccountName: inspector-sa
       containers:
-      - name: inspector
-        image: inspector:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 3000
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 3000
-          initialDelaySeconds: 2
-          periodSeconds: 5
+        - name: inspector
+          image: inspector:REPLACE_WITH_COMMIT_SHA
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 2
+            periodSeconds: 5
       securityContext:
         runAsNonRoot: true
         runAsUser: 65532
