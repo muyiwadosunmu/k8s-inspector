@@ -11,8 +11,8 @@ RUN go mod download
 COPY . .
 # Embed build metadata into the binary using -ldflags
 RUN CGO_ENABLED=0 GOOS=linux \
-	go build -ldflags "-s -w -X 'main.buildTime=${BUILD_TIME}' -X 'main.gitCommit=${GIT_COMMIT}'" \
-	-o /app/inspector ./cmd/inspector
+    go build -ldflags "-s -w -X 'main.buildTime=${BUILD_TIME}' -X 'main.gitCommit=${GIT_COMMIT}'" \
+    -o /app/inspector ./cmd/inspector
 
 FROM alpine:3.18
 ARG BUILD_TIME
