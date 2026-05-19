@@ -13,9 +13,9 @@ type PageResponse[T any] struct {
 
 // Request holds standard request information.
 type Request struct {
-	Page         int
-	PageSize     int
-	OrderBy      string
+	Page           int
+	PageSize       int
+	OrderBy        string
 	OrderDirection string
 }
 

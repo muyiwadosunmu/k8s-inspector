@@ -12,7 +12,7 @@ func (app *application) routes() http.Handler {
 	sugar := app.logger.Sugar()
 
 	webApp := web.NewApp(
-		mux, 
+		mux,
 		app.webErrorHandler,
 		web.Logger(sugar),
 		web.Errors(sugar),
