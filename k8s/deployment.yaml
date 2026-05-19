@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspector
+  labels:
+    app: inspector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inspector
+  template:
+    metadata:
+      labels:
+        app: inspector
+    spec:
+      serviceAccountName: inspector-sa
+      containers:
+      - name: inspector
+        image: inspector:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 2
+          periodSeconds: 5
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532

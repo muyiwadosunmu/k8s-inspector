@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inspector
+spec:
+  selector:
+    app: inspector
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+  type: ClusterIP
