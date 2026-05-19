@@ -2,14 +2,24 @@ package main
 
 import (
 	"net/http"
+
+	"muyiwadosunmu/k8s-inspector/internal/pkg/web"
 )
 
-// routes method returns an http.Handler that routes incoming requests.
 func (app *application) routes() http.Handler {
-	// Initialize a new serve mux.
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/v1/healthcheck", app.healthcheckHandler)
+	sugar := app.logger.Sugar()
+
+	webApp := web.NewApp(
+		mux, 
+		app.webErrorHandler,
+		web.Logger(sugar),
+		web.Errors(sugar),
+		web.Panics(),
+	)
+
+	webApp.Handle(http.MethodGet, "/v1/healthcheck", app.healthcheckHandler)
 
 	return mux
 }
