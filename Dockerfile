@@ -1,7 +1,7 @@
 ARG BUILD_TIME=""
 ARG GIT_COMMIT=""
 
-FROM golang:1.20-alpine AS builder
+FROM golang:1.26-alpine AS builder
 ARG BUILD_TIME
 ARG GIT_COMMIT
 RUN apk add --no-cache git build-base
