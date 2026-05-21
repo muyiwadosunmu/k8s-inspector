@@ -1,7 +1,7 @@
 GIT_COMMIT := $(shell git rev-parse --short HEAD 2>/dev/null || echo dev)
 BUILD_TIME := $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 IMAGE ?= inspector:$(GIT_COMMIT)
-KIND_CLUSTER ?= kind-muyiwa-dev
+KIND_CLUSTER ?= muyiwa-dev
 MINIKUBE_PROFILE ?= minikube
 
 # detect host arch for macOS builds

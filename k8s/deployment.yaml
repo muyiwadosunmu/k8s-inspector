@@ -15,7 +15,7 @@ spec:
         app: inspector
       annotations:
         # Replace this with an immutable image tag (commit SHA or semver)
-        # e.g. deployedImage: registry.example.com/inspector:deadbeef
+        # e.g. deployedImage: registry.example.com/inspector:xyz1234
         deployedImage: "inspector:REPLACE_WITH_COMMIT_SHA"
     spec:
       serviceAccountName: inspector-sa
