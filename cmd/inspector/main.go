@@ -18,6 +18,7 @@ import (
 )
 
 /*
+All tested using kinD
 curl http://localhost:3000/healthz
 curl http://localhost:3000/summary
 curl "http://localhost:3000/pods?namespace=default"
