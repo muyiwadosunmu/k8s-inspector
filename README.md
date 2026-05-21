@@ -10,7 +10,7 @@ Small service that exposes Kubernetes information via HTTP endpoints.
 
 ## Run locally
 
-Prerequisites: Go 1.20+, Docker (optional), access to a Kubernetes cluster (kind/minikube or kubeconfig).
+Prerequisites: Go 1.26, Docker (optional), access to a Kubernetes cluster (kind/minikube or kubeconfig).
 
 1. Run against your kubeconfig (out-of-cluster):
 
