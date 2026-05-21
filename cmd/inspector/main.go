@@ -17,6 +17,12 @@ import (
 	"go.uber.org/zap"
 )
 
+/*
+curl http://localhost:3000/healthz
+curl http://localhost:3000/summary
+curl "http://localhost:3000/pods?namespace=default"
+*/
+
 type config struct {
 	port int
 	env  string
